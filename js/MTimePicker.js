@@ -5,17 +5,37 @@ var MTimePicker = {
     timePicker.style.marginTop = "10px";
     timePicker.draggable = false;
     
-    var input = document.createElement("input");
-    input.type = "text";
-    input.value = inputValue;
-    input.style.width = "100px";
-    input.style.height = "50px";
-    input.style.display = "inline-block";
-    input.style.textAlign = "center";
-    input.style.fontSize = "26px";
-    input.style.marginTop = "5px";
-    input.style.marginBottom = "5px";
-    input.className = MTimePicker.Config.InputClass;
+    var arrayTime = timeToArray(inputValue);
+    
+    var inputHour = document.createElement("input");
+    inputHour.type = "number";
+    inputHour.value = arrayTime[0];
+    inputHour.style.width = "70px";
+    inputHour.style.height = "50px";
+    inputHour.style.display = "inline-block";
+    inputHour.style.textAlign = "center";
+    inputHour.style.fontSize = "26px";
+    inputHour.style.marginTop = "5px";
+    inputHour.style.marginBottom = "5px";
+    inputHour.className = MTimePicker.Config.InputClass;
+    inputHour.onblur = function() {
+      inputHour.value = formatHour(inputHour.value);
+    };
+    
+    var inputMinute = document.createElement("input");
+    inputMinute.type = "number";
+    inputMinute.value = arrayTime[1];
+    inputMinute.style.width = "70px";
+    inputMinute.style.height = "50px";
+    inputMinute.style.display = "inline-block";
+    inputMinute.style.textAlign = "center";
+    inputMinute.style.fontSize = "26px";
+    inputMinute.style.marginTop = "5px";
+    inputMinute.style.marginBottom = "5px";
+    inputMinute.className = MTimePicker.Config.InputClass;
+    inputMinute.onblur = function() {
+      inputMinute.value = formatMinute(inputMinute.value);
+    };
     
     var btnHoursPlus = document.createElement("button");
     btnHoursPlus.innerHTML = "+";
@@ -42,7 +62,8 @@ var MTimePicker = {
     
     timePicker.appendChild(document.createElement("br"));
 
-    timePicker.appendChild(input);  
+    timePicker.appendChild(inputHour);
+    timePicker.appendChild(inputMinute);
 
     timePicker.appendChild(document.createElement("br"));
     
@@ -71,11 +92,13 @@ var MTimePicker = {
     
     //Begin Methods
     timePicker.SetValue = function(value) {
-      input.value = value;
+      arrayTime = timeToArray(value);
+      inputHour.value = arrayTime[0];
+      inputMinute.value = arrayTime[1];
     }
     
     timePicker.GetValue = function() {
-      return input.value;
+      return inputHour.value + ":" + inputMinute.value;
     }
     
     // "12:50" > [12,50]
@@ -101,7 +124,7 @@ var MTimePicker = {
       if(arrayTime.length == 2) {
         var hour = parseInt(arrayTime[0]);
         if(isNaN(hour)) {
-          hour = "0";
+          hour = "00";
         } else {
           if(hour < 10) {
             hour = "0" + hour
@@ -121,44 +144,56 @@ var MTimePicker = {
       }
     }
     
-    function HourPlus() {
-      var arrayTime = timeToArray(input.value);
-      if(arrayTime[0] > 22) {
-        arrayTime[0] = 0;
-      } else {
-        arrayTime[0]++;        
+    function formatZero(number) {
+      var newValue = parseInt(number);
+        if(isNaN(newValue)) {
+          newValue = "00";
+        } else {
+          if(newValue < 10) {
+            newValue = "0" + newValue
+          }
+        }
+        return newValue;
+    }
+    
+    function formatHour(hour) {
+      hour = parseInt(hour);
+      if(isNaN(hour) || hour > 23 || hour < 0) {
+        hour = 0;
       }
-      input.value = arrayToTime(arrayTime);
+      return formatZero(hour);
+    }
+    
+    function formatMinute(minute) {
+      minute = parseInt(minute);
+      if(isNaN(minute) || minute > 59 || minute < 0) {
+        minute = 0;
+      }
+      return formatZero(minute);
+    }
+    
+    function HourPlus() {
+      var arrayTime = timeToArray(timePicker.GetValue());
+      arrayTime[0]++;      
+      inputHour.value = formatHour(arrayTime[0]);
     }
     
     function HourMinus() {
-      var arrayTime = timeToArray(input.value);
-      if(arrayTime[0] == 0) {
-        arrayTime[0] = 23;
-      } else {
-        arrayTime[0]--;        
-      }
-      input.value = arrayToTime(arrayTime);
+      var arrayTime = timeToArray(timePicker.GetValue());
+      arrayTime[0]--;
+      inputHour.value = formatHour(arrayTime[0]);
     }
     
     function MinutePlus() {
-      var arrayTime = timeToArray(input.value);
-      if(arrayTime[1] > 58) {
-        arrayTime[1] = 0;
-      } else {
-        arrayTime[1]++;        
-      }
-      input.value = arrayToTime(arrayTime);
+      var arrayTime = timeToArray(timePicker.GetValue());
+      arrayTime[1]++;
+      inputMinute.value = formatMinute(arrayTime[1]);
     }
     
     function MinuteMinus() {
-      var arrayTime = timeToArray(input.value);
-      if(arrayTime[1] == 0) {
-        arrayTime[1] = 59;
-      } else {
-        arrayTime[1]--;        
-      }
-      input.value = arrayToTime(arrayTime);
+      var arrayTime = timeToArray(timePicker.GetValue());
+      arrayTime[1]--;
+      inputMinute.value = formatMinute(arrayTime[1]);
     }
     //End Methods
     
@@ -212,7 +247,8 @@ var MTimePicker = {
     divModalBG.style.height = "100%";
     divModalBG.style.zIndex = "9999";
     divModalBG.style.display = "block";
-    divModalBG.style.backgroundColor = "rgba(0, 0, 0, 0.5)";    
+    divModalBG.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+    divModalBG.draggable = false;
     
     var divModal = document.createElement("div");
     divModal.className = "ModalDialog";
@@ -226,6 +262,7 @@ var MTimePicker = {
     divModal.style.backgroundColor = "white";
     divModal.style.textAlign = "center";
     divModal.style.verticalAlign = "middle";
+    divModal.draggable = false;
     
     var divTitle = document.createElement("div");
     divTitle.innerHTML = title||"Escolha uma Hora:";
@@ -234,6 +271,7 @@ var MTimePicker = {
     divTitle.style.marginTop = "10px";
     divTitle.style.marginBottom = "20px";
     divTitle.className = MTimePicker.Config.TitleClass;
+    divTitle.draggable = false;
     divModal.appendChild(divTitle);
     
     var timePicker = MTimePicker.Create(input);
