@@ -1,6 +1,5 @@
 var MTimePicker = {
-  Create: function(inputValue) 
-  {
+  Create: function(inputValue) {
     var timePicker = document.createElement("div");
     timePicker.style.textAlign = "center";
     timePicker.style.marginTop = "10px";
@@ -24,7 +23,7 @@ var MTimePicker = {
     btnHoursPlus.style.height = "40px";
     btnHoursPlus.style.fontSize = "22px";
     btnHoursPlus.className = MTimePicker.Config.ButtonClass;
-    btnHoursPlus.onclick = function(){
+    btnHoursPlus.onclick = function() {
       HourPlus();
     };
     timePicker.appendChild(btnHoursPlus);
@@ -36,7 +35,7 @@ var MTimePicker = {
     btnMinutesPlus.style.marginLeft = "10px";
     btnMinutesPlus.style.fontSize = "22px";
     btnMinutesPlus.className = MTimePicker.Config.ButtonClass;
-    btnMinutesPlus.onclick = function(){
+    btnMinutesPlus.onclick = function() {
       MinutePlus();
     };
     timePicker.appendChild(btnMinutesPlus);  
@@ -53,7 +52,7 @@ var MTimePicker = {
     btnHoursMinus.style.height = "40px";
     btnHoursMinus.style.fontSize = "22px";
     btnHoursMinus.className = MTimePicker.Config.ButtonClass;
-    btnHoursMinus.onclick = function(){
+    btnHoursMinus.onclick = function() {
       HourMinus();
     };
     timePicker.appendChild(btnHoursMinus);
@@ -65,33 +64,30 @@ var MTimePicker = {
     btnMinutesMinus.style.marginLeft = "10px";
     btnMinutesMinus.style.fontSize = "22px";
     btnMinutesMinus.className = MTimePicker.Config.ButtonClass;
-    btnMinutesMinus.onclick = function(){
+    btnMinutesMinus.onclick = function() {
       MinuteMinus();
     };
     timePicker.appendChild(btnMinutesMinus);
     
     //Begin Methods
-    timePicker.SetValue = function(value)
-    {
+    timePicker.SetValue = function(value) {
       input.value = value;
     }
-    timePicker.GetValue = function()
-    {
+    
+    timePicker.GetValue = function() {
       return input.value;
     }
     
     // "12:50" > [12,50]
-    function timeToArray(value)
-    {
+    function timeToArray(value) {
       var arrayTime = value.split(":");
-      if(arrayTime.length == 2)
-      {
+      if(arrayTime.length == 2) {
         var hour = parseInt(arrayTime[0]);
-        if(isNaN(hour)){
+        if(isNaN(hour)) {
           hour = 0;
         }
         var minute = parseInt(arrayTime[1]);
-        if(isNaN(minute)){
+        if(isNaN(minute)) {
           minute = 0;
         }
         return [hour,minute];
@@ -101,23 +97,21 @@ var MTimePicker = {
     }
     
     // [12,50] > "12:50"
-    function arrayToTime(arrayTime)
-    {
-      if(arrayTime.length == 2)
-      {
+    function arrayToTime(arrayTime) {
+      if(arrayTime.length == 2) {
         var hour = parseInt(arrayTime[0]);
-        if(isNaN(hour)){
+        if(isNaN(hour)) {
           hour = "0";
         } else {
-          if(hour < 10){
+          if(hour < 10) {
             hour = "0" + hour
           }
         }
         var minute = parseInt(arrayTime[1]);
-        if(isNaN(minute)){
+        if(isNaN(minute)) {
           minute = "00";
         } else {
-          if(minute < 10){
+          if(minute < 10) {
             minute = "0" + minute
           }
         }
@@ -127,44 +121,39 @@ var MTimePicker = {
       }
     }
     
-    function HourPlus()
-    {
+    function HourPlus() {
       var arrayTime = timeToArray(input.value);
-      if(arrayTime[0] > 22)
-      {
+      if(arrayTime[0] > 22) {
         arrayTime[0] = 0;
       } else {
         arrayTime[0]++;        
       }
       input.value = arrayToTime(arrayTime);
     }
-    function HourMinus()
-    {
+    
+    function HourMinus() {
       var arrayTime = timeToArray(input.value);
-      if(arrayTime[0] == 0)
-      {
+      if(arrayTime[0] == 0) {
         arrayTime[0] = 23;
       } else {
         arrayTime[0]--;        
       }
       input.value = arrayToTime(arrayTime);
     }
-    function MinutePlus()
-    {
+    
+    function MinutePlus() {
       var arrayTime = timeToArray(input.value);
-      if(arrayTime[1] > 58)
-      {
+      if(arrayTime[1] > 58) {
         arrayTime[1] = 0;
       } else {
         arrayTime[1]++;        
       }
       input.value = arrayToTime(arrayTime);
     }
-    function MinuteMinus()
-    {
+    
+    function MinuteMinus() {
       var arrayTime = timeToArray(input.value);
-      if(arrayTime[1] == 0)
-      {
+      if(arrayTime[1] == 0) {
         arrayTime[1] = 59;
       } else {
         arrayTime[1]--;        
@@ -172,10 +161,17 @@ var MTimePicker = {
       input.value = arrayToTime(arrayTime);
     }
     //End Methods
+    
     return timePicker;
   },
-  ShowModal: function (input, callback, title){
+  ShowModal: function (input, callback, title) {
+    var modalAlreadyOpened = document.getElementById("MTimePickerModal");
+    if(modalAlreadyOpened) {
+      document.body.removeChild(modalAlreadyOpened);
+    }
+    
     var divModalBG = document.createElement("div");
+    divModalBG.id = "MTimePickerModal";
     divModalBG.style.overflow = "auto";
     divModalBG.style.position = "fixed";
     divModalBG.style.left = "0px";
@@ -239,18 +235,18 @@ var MTimePicker = {
 
     document.body.appendChild(divModalBG);
   },
-  Apply: function(elementOrId, title){
-    if(typeof elementOrId == "string"){
+  Apply: function(elementOrId, title) {
+    if(typeof elementOrId == "string") {
       elementOrId = document.getElementById(elementOrId);
     }
     elementOrId.type = "text";
     elementOrId.readOnly = "readonly";
     elementOrId.style.backgroundColor = "white";
     elementOrId.style.cursor = "default";
-    elementOrId.onclick = function(){
+    elementOrId.onclick = function() {
       MTimePicker.ShowModal(
         elementOrId.value,
-        function(newValue){
+        function(newValue) {
           elementOrId.value = newValue;
         },
         title
@@ -261,8 +257,22 @@ var MTimePicker = {
     ButtonClass: "",
     InputClass: "",
     TitleClass: ""
-  }  
+  }
 };
+
+var MTimePicker_back = function() {
+  var modalOpened = document.getElementById("MTimePickerModal");
+  if(modalOpened) {
+    document.body.removeChild(modalOpened);
+    return false;
+  }
+};
+
+document.addEventListener("deviceready", function() {
+  document.addEventListener("backbutton", MTimePicker_back, false);
+}
+, false);
+
 
 
 
