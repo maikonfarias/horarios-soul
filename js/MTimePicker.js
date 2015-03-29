@@ -165,12 +165,23 @@ var MTimePicker = {
     return timePicker;
   },
   ShowModal: function (input, callback, title) {
+    function EnableAllInputs() {
+      for(var i=0; i<(document.getElementsByTagName('input').length); i++) {
+        document.getElementsByTagName('input')[i].removeAttribute('disabled');
+      }
+    }
     
+    function DisableAllInputs() {
+      for(var i=0; i<(document.getElementsByTagName('input').length); i++) {
+        document.getElementsByTagName('input')[i].setAttribute('disabled');
+      }
+    }
     var MTimePicker_back = function() {
       var modalOpened = document.getElementById("MTimePickerModal");
       if(modalOpened) {
         document.removeEventListener("backbutton", MTimePicker_back, false);
         document.body.removeChild(modalOpened);
+        EnableAllInputs();
         return false;
       }
     };
@@ -179,6 +190,7 @@ var MTimePicker = {
     if(modalAlreadyOpened) {
       document.removeEventListener("backbutton", MTimePicker_back, false);
       document.body.removeChild(modalAlreadyOpened);
+      EnableAllInputs();
     }
     
     var divModalBG = document.createElement("div");
@@ -239,7 +251,8 @@ var MTimePicker = {
         callback(timePicker.GetValue());        
       }
       document.removeEventListener("backbutton", MTimePicker_back, false);
-      document.body.removeChild(divModalBG);      
+      document.body.removeChild(divModalBG);  
+      EnableAllInputs();      
     }, true);
     divModal.appendChild(btnOK);    
     divModalBG.appendChild(divModal);
@@ -254,6 +267,7 @@ var MTimePicker = {
       e.stopPropagation();
     }, true);
     
+    DisableAllInputs();
     document.addEventListener("backbutton", MTimePicker_back, false);
   },
   Apply: function(elementOrId, title) {
