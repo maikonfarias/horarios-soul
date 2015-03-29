@@ -9,7 +9,10 @@ var MTimePicker = {
     
     var inputHour = document.createElement("input");
     inputHour.type = "number";
-    inputHour.value = arrayTime[0];
+    inputHour.value = formatHour(arrayTime[0]);
+    inputHour.maxlength = "2";
+    inputHour.min = 0;
+    inputHour.max = 23;
     inputHour.style.width = "70px";
     inputHour.style.height = "50px";
     inputHour.style.display = "inline-block";
@@ -24,7 +27,10 @@ var MTimePicker = {
     
     var inputMinute = document.createElement("input");
     inputMinute.type = "number";
-    inputMinute.value = arrayTime[1];
+    inputMinute.value = formatMinute(arrayTime[1]);
+    inputMinute.maxlength = "2";
+    inputMinute.min = 0;
+    inputMinute.max = 59;
     inputMinute.style.width = "70px";
     inputMinute.style.height = "50px";
     inputMinute.style.display = "inline-block";
@@ -158,16 +164,20 @@ var MTimePicker = {
     
     function formatHour(hour) {
       hour = parseInt(hour);
-      if(isNaN(hour) || hour > 23 || hour < 0) {
+      if(isNaN(hour) || hour > 23) {
         hour = 0;
+      } else if(hour < 0) {
+        hour = 23;
       }
       return formatZero(hour);
     }
     
     function formatMinute(minute) {
       minute = parseInt(minute);
-      if(isNaN(minute) || minute > 59 || minute < 0) {
+      if(isNaN(minute) || minute > 59) {
         minute = 0;
+      } else if(minute < 0) {
+        minute = 59;
       }
       return formatZero(minute);
     }
