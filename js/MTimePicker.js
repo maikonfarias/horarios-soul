@@ -23,9 +23,9 @@ var MTimePicker = {
     btnHoursPlus.style.height = "40px";
     btnHoursPlus.style.fontSize = "22px";
     btnHoursPlus.className = MTimePicker.Config.ButtonClass;
-    btnHoursPlus.addEventListener("onclick", function() {
+    btnHoursPlus.onclick = function() {
       HourPlus();
-    }, true);
+    };
     timePicker.appendChild(btnHoursPlus);
 
     var btnMinutesPlus = document.createElement("button");
@@ -35,9 +35,9 @@ var MTimePicker = {
     btnMinutesPlus.style.marginLeft = "10px";
     btnMinutesPlus.style.fontSize = "22px";
     btnMinutesPlus.className = MTimePicker.Config.ButtonClass;
-    btnMinutesPlus.addEventListener("onclick", function() {
+    btnMinutesPlus.onclick = function() {
       MinutePlus();
-    }, true);
+    };
     timePicker.appendChild(btnMinutesPlus);  
     
     timePicker.appendChild(document.createElement("br"));
@@ -52,9 +52,9 @@ var MTimePicker = {
     btnHoursMinus.style.height = "40px";
     btnHoursMinus.style.fontSize = "22px";
     btnHoursMinus.className = MTimePicker.Config.ButtonClass;
-    btnHoursMinus.addEventListener("onclick", function() {
+    btnHoursMinus.onclick = function() {
       HourMinus();
-    }, true);
+    };
     timePicker.appendChild(btnHoursMinus);
 
     var btnMinutesMinus = document.createElement("button");
@@ -64,9 +64,9 @@ var MTimePicker = {
     btnMinutesMinus.style.marginLeft = "10px";
     btnMinutesMinus.style.fontSize = "22px";
     btnMinutesMinus.className = MTimePicker.Config.ButtonClass;
-    btnMinutesMinus.addEventListener("onclick", function() {
+    btnMinutesMinus.onclick = function() {
       MinuteMinus();
-    }, true);
+    };
     timePicker.appendChild(btnMinutesMinus);
     
     //Begin Methods
@@ -176,10 +176,10 @@ var MTimePicker = {
     
     function DisableAllInputs() {
       for(var i=0; i<(document.getElementsByTagName('input').length); i++) {
-        document.getElementsByTagName('input')[i].setAttribute('disabled');
+        document.getElementsByTagName('input')[i].setAttribute('disabled', 'disabled');
       }
       for(var i=0; i<(document.getElementsByTagName('select').length); i++) {
-        document.getElementsByTagName('select')[i].setAttribute('disabled');
+        document.getElementsByTagName('select')[i].setAttribute('disabled', 'disabled');
       }
     }
     var MTimePicker_back = function() {
@@ -244,9 +244,11 @@ var MTimePicker = {
     btnCancel.style.marginTop = "10px";
     btnCancel.style.width = "80px";
     btnCancel.className = MTimePicker.Config.ButtonClass;
-    btnCancel.addEventListener("onclick", function(){
-      document.body.removeChild(divModalBG);
-    }, true);
+    btnCancel.onclick = function() {
+      document.removeEventListener("backbutton", MTimePicker_back, false);
+      document.body.removeChild(divModalBG);  
+      EnableAllInputs();     
+    };
     divModal.appendChild(btnCancel);
     
     var btnOK = document.createElement("button");
@@ -255,26 +257,17 @@ var MTimePicker = {
     btnOK.style.marginTop = "10px";
     btnOK.style.width = "50px";
     btnOK.className = MTimePicker.Config.ButtonClass;
-    btnOK.addEventListener("onclick", function(){
+    btnOK.onclick = function() {
       if(callback){
         callback(timePicker.GetValue());        
       }
       document.removeEventListener("backbutton", MTimePicker_back, false);
       document.body.removeChild(divModalBG);  
       EnableAllInputs();      
-    }, true);
+    };
     divModal.appendChild(btnOK);    
     divModalBG.appendChild(divModal);
     document.body.appendChild(divModalBG);
-    
-    divModalBG.addEventListener("onclick", function(e) {
-      return false;
-      e.stopPropagation();
-    }, true);
-    divModal.addEventListener("onclick", function(e) {
-      return false;
-      e.stopPropagation();
-    }, true);
     
     document.addEventListener("backbutton", MTimePicker_back, false);
   },
