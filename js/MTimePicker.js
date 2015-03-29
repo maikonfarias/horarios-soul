@@ -165,8 +165,19 @@ var MTimePicker = {
     return timePicker;
   },
   ShowModal: function (input, callback, title) {
+    
+    var MTimePicker_back = function() {
+      var modalOpened = document.getElementById("MTimePickerModal");
+      if(modalOpened) {
+        document.removeEventListener("backbutton", MTimePicker_back, false);
+        document.body.removeChild(modalOpened);
+        return false;
+      }
+    };
+    
     var modalAlreadyOpened = document.getElementById("MTimePickerModal");
     if(modalAlreadyOpened) {
+      document.removeEventListener("backbutton", MTimePicker_back, false);
       document.body.removeChild(modalAlreadyOpened);
     }
     
@@ -227,13 +238,14 @@ var MTimePicker = {
       if(callback){
         callback(timePicker.GetValue());        
       }
-      document.body.removeChild(divModalBG);
+      document.removeEventListener("backbutton", MTimePicker_back, false);
+      document.body.removeChild(divModalBG);      
     };
-    divModal.appendChild(btnOK);
-    
+    divModal.appendChild(btnOK);    
     divModalBG.appendChild(divModal);
-
     document.body.appendChild(divModalBG);
+    
+    document.addEventListener("backbutton", MTimePicker_back, false);
   },
   Apply: function(elementOrId, title) {
     if(typeof elementOrId == "string") {
@@ -259,19 +271,6 @@ var MTimePicker = {
     TitleClass: ""
   }
 };
-
-var MTimePicker_back = function() {
-  var modalOpened = document.getElementById("MTimePickerModal");
-  if(modalOpened) {
-    document.body.removeChild(modalOpened);
-    return false;
-  }
-};
-
-document.addEventListener("deviceready", function() {
-  document.addEventListener("backbutton", MTimePicker_back, false);
-}
-, false);
 
 
 
