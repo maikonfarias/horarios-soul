@@ -258,6 +258,12 @@ var MTimePicker = {
     divModalBG.style.zIndex = "9999";
     divModalBG.style.display = "block";
     divModalBG.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+    divModalBG.addEventListener(
+      "touchmove",
+      function(e) {
+        e.preventDefault();
+      }
+    );
     divModalBG.draggable = false;
     
     var divModal = document.createElement("div");
