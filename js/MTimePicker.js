@@ -52,6 +52,7 @@ var MTimePicker = {
     btnHoursPlus.onclick = function() {
       HourPlus();
     };
+    btnHoursPlus.addEventListener("touchstart", HourPlus);
     timePicker.appendChild(btnHoursPlus);
 
     var btnMinutesPlus = document.createElement("button");
