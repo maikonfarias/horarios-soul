@@ -15,11 +15,13 @@ var MTimePicker = {
     inputHour.max = 23;
     inputHour.style.width = "70px";
     inputHour.style.height = "50px";
-    inputHour.style.display = "inline-block";
+    //inputHour.style.display = "inline-block";
+    inputHour.style.cssFloat = "left";
     inputHour.style.textAlign = "center";
     inputHour.style.fontSize = "26px";
     inputHour.style.marginTop = "5px";
     inputHour.style.marginBottom = "5px";
+    inputHour.style.marginLeft = "22px";
     inputHour.className = MTimePicker.Config.InputClass;
     inputHour.onblur = function() {
       inputHour.value = formatHour(inputHour.value);
@@ -33,12 +35,13 @@ var MTimePicker = {
     inputMinute.max = 59;
     inputMinute.style.width = "70px";
     inputMinute.style.height = "50px";
-    inputMinute.style.display = "inline-block";
+    //inputMinute.style.display = "inline-block";
+    inputMinute.style.cssFloat = "left";
     inputMinute.style.textAlign = "center";
     inputMinute.style.fontSize = "26px";
     inputMinute.style.marginTop = "5px";
     inputMinute.style.marginBottom = "5px";
-    inputMinute.style.marginLeft = "5px";
+    inputMinute.style.marginLeft = "15px";
     inputMinute.className = MTimePicker.Config.InputClass;
     inputMinute.onblur = function() {
       inputMinute.value = formatMinute(inputMinute.value);
@@ -73,8 +76,13 @@ var MTimePicker = {
     
     timePicker.appendChild(document.createElement("br"));
 
-    timePicker.appendChild(inputHour);
-    timePicker.appendChild(inputMinute);
+    var divInputs = document.createElement("div");
+    divInputs.style.width = "200px";
+    divInputs.style.cssFloat = "left";
+    divInputs.style.align = "center";
+    divInputs.appendChild(inputHour);
+    divInputs.appendChild(inputMinute);
+    timePicker.appendChild(divInputs);
 
     timePicker.appendChild(document.createElement("br"));
     
