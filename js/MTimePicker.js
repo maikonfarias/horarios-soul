@@ -153,7 +153,7 @@ var MTimePicker = {
     }
     
     function formatZero(number) {
-      var newValue = parseInt(number);
+      var newValue = parseInt(number, 10);
         if(isNaN(newValue)) {
           newValue = "00";
         } else {
@@ -165,7 +165,7 @@ var MTimePicker = {
     }
     
     function formatHour(hour) {
-      hour = parseInt(hour);
+      hour = parseInt(hour, 10);
       if(isNaN(hour) || hour > 23) {
         hour = 0;
       } else if(hour < 0) {
@@ -175,7 +175,7 @@ var MTimePicker = {
     }
     
     function formatMinute(minute) {
-      minute = parseInt(minute);
+      minute = parseInt(minute, 10);
       if(isNaN(minute) || minute > 59) {
         minute = 0;
       } else if(minute < 0) {
