@@ -84,7 +84,7 @@ var MTimePicker = {
     btnHoursMinus.style.height = "50px";
     btnHoursMinus.style.fontSize = "22px";
     btnHoursMinus.className = MTimePicker.Config.ButtonClass;
-    btnHoursMinus.addEventListener("click", HourMinus};
+    btnHoursMinus.addEventListener("click", HourMinus);
     btnHoursMinus.addEventListener("touchstart", function(e){
       btnHoursMinus.removeEventListener("click",HourMinus);
       HourMinus();      
@@ -98,7 +98,7 @@ var MTimePicker = {
     btnMinutesMinus.style.marginLeft = "25px";
     btnMinutesMinus.style.fontSize = "22px";
     btnMinutesMinus.className = MTimePicker.Config.ButtonClass;
-    btnMinutesMinus.addEventListener("click", MinuteMinus};
+    btnMinutesMinus.addEventListener("click", MinuteMinus);
     btnMinutesMinus.addEventListener("touchstart", function(e){
       btnMinutesMinus.removeEventListener("click",MinuteMinus);
       MinuteMinus();      
