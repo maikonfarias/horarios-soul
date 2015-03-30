@@ -113,14 +113,8 @@ var MTimePicker = {
     function timeToArray(value) {
       var arrayTime = value.split(":");
       if(arrayTime.length == 2) {
-        var hour = parseInt(arrayTime[0]);
-        if(isNaN(hour)) {
-          hour = 0;
-        }
-        var minute = parseInt(arrayTime[1]);
-        if(isNaN(minute)) {
-          minute = 0;
-        }
+        var hour = formatHour(arrayTime[0]);
+        var minute = formatMinute(arrayTime[1]);
         return [hour,minute];
       } else {
         return [0,0];
@@ -130,22 +124,8 @@ var MTimePicker = {
     // [12,50] > "12:50"
     function arrayToTime(arrayTime) {
       if(arrayTime.length == 2) {
-        var hour = parseInt(arrayTime[0]);
-        if(isNaN(hour)) {
-          hour = "00";
-        } else {
-          if(hour < 10) {
-            hour = "0" + hour
-          }
-        }
-        var minute = parseInt(arrayTime[1]);
-        if(isNaN(minute)) {
-          minute = "00";
-        } else {
-          if(minute < 10) {
-            minute = "0" + minute
-          }
-        }
+        var hour = formatHour(arrayTime[0]);
+        var minute = formatMinute(arrayTime[1]);
         return hour + ":" + minute;
       } else {
         return "0:00";
