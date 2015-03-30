@@ -38,6 +38,7 @@ var MTimePicker = {
     inputMinute.style.fontSize = "26px";
     inputMinute.style.marginTop = "5px";
     inputMinute.style.marginBottom = "5px";
+    inputMinute.style.marginLeft = "5px";
     inputMinute.className = MTimePicker.Config.InputClass;
     inputMinute.onblur = function() {
       inputMinute.value = formatMinute(inputMinute.value);
@@ -45,8 +46,8 @@ var MTimePicker = {
     
     var btnHoursPlus = document.createElement("button");
     btnHoursPlus.innerHTML = "+";
-    btnHoursPlus.style.width = "40px";
-    btnHoursPlus.style.height = "40px";
+    btnHoursPlus.style.width = "50px";
+    btnHoursPlus.style.height = "50px";
     btnHoursPlus.style.fontSize = "22px";
     btnHoursPlus.className = MTimePicker.Config.ButtonClass;
     btnHoursPlus.addEventListener("click", HourPlus);
@@ -58,14 +59,16 @@ var MTimePicker = {
 
     var btnMinutesPlus = document.createElement("button");
     btnMinutesPlus.innerHTML = "+";
-    btnMinutesPlus.style.width = "40px";
-    btnMinutesPlus.style.height = "40px";
-    btnMinutesPlus.style.marginLeft = "10px";
+    btnMinutesPlus.style.width = "50px";
+    btnMinutesPlus.style.height = "50px";
+    btnMinutesPlus.style.marginLeft = "25px";
     btnMinutesPlus.style.fontSize = "22px";
     btnMinutesPlus.className = MTimePicker.Config.ButtonClass;
-    btnMinutesPlus.onclick = function() {
-      MinutePlus();
-    };
+    btnMinutesPlus.addEventListener("click", MinutePlus);
+    btnMinutesPlus.addEventListener("touchstart", function(e){
+      btnMinutesPlus.removeEventListener("click",MinutePlus);
+      MinutePlus();      
+    },true);
     timePicker.appendChild(btnMinutesPlus);  
     
     timePicker.appendChild(document.createElement("br"));
@@ -77,25 +80,29 @@ var MTimePicker = {
     
     var btnHoursMinus = document.createElement("button");
     btnHoursMinus.innerHTML = "-";
-    btnHoursMinus.style.width = "40px";
-    btnHoursMinus.style.height = "40px";
+    btnHoursMinus.style.width = "50px";
+    btnHoursMinus.style.height = "50px";
     btnHoursMinus.style.fontSize = "22px";
     btnHoursMinus.className = MTimePicker.Config.ButtonClass;
-    btnHoursMinus.onclick = function() {
-      HourMinus();
-    };
+    btnHoursMinus.addEventListener("click", HourMinus};
+    btnHoursMinus.addEventListener("touchstart", function(e){
+      btnHoursMinus.removeEventListener("click",HourMinus);
+      HourMinus();      
+    },true);
     timePicker.appendChild(btnHoursMinus);
 
     var btnMinutesMinus = document.createElement("button");
     btnMinutesMinus.innerHTML = "-";
-    btnMinutesMinus.style.width = "40px";
-    btnMinutesMinus.style.height = "40px";
-    btnMinutesMinus.style.marginLeft = "10px";
+    btnMinutesMinus.style.width = "50px";
+    btnMinutesMinus.style.height = "50px";
+    btnMinutesMinus.style.marginLeft = "25px";
     btnMinutesMinus.style.fontSize = "22px";
     btnMinutesMinus.className = MTimePicker.Config.ButtonClass;
-    btnMinutesMinus.onclick = function() {
-      MinuteMinus();
-    };
+    btnMinutesMinus.addEventListener("click", MinuteMinus};
+    btnMinutesMinus.addEventListener("touchstart", function(e){
+      btnMinutesMinus.removeEventListener("click",MinuteMinus);
+      MinuteMinus();      
+    },true);
     timePicker.appendChild(btnMinutesMinus);
     
     //Begin Methods
@@ -256,7 +263,7 @@ var MTimePicker = {
     divModal.style.marginLeft = "-100px";
     divModal.style.marginTop = "-125px";  
     divModal.style.width = "200px";
-    divModal.style.height = "250px";
+    divModal.style.height = "270px";
     divModal.style.backgroundColor = "white";
     divModal.style.textAlign = "center";
     divModal.style.verticalAlign = "middle";
@@ -277,7 +284,7 @@ var MTimePicker = {
     
     var btnCancel = document.createElement("button");
     btnCancel.innerHTML = "Cancelar";
-    btnCancel.style.marginTop = "10px";
+    btnCancel.style.marginTop = "15px";
     btnCancel.style.width = "80px";
     btnCancel.className = MTimePicker.Config.ButtonClass;
     btnCancel.onclick = function() {
@@ -290,7 +297,7 @@ var MTimePicker = {
     var btnOK = document.createElement("button");
     btnOK.innerHTML = "OK";    
     btnOK.style.marginLeft = "10px";
-    btnOK.style.marginTop = "10px";
+    btnOK.style.marginTop = "15px";
     btnOK.style.width = "50px";
     btnOK.className = MTimePicker.Config.ButtonClass;
     btnOK.onclick = function() {
