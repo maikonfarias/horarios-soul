@@ -26,6 +26,9 @@ var MTimePicker = {
     inputHour.onblur = function() {
       inputHour.value = formatHour(inputHour.value);
     };
+    inputHour.addEventListener("touchstart", function(e) {
+      inputHour.select();
+    },true);
     
     var inputMinute = document.createElement("input");
     inputMinute.type = "number";
@@ -46,6 +49,9 @@ var MTimePicker = {
     inputMinute.onblur = function() {
       inputMinute.value = formatMinute(inputMinute.value);
     };
+    inputMinute.addEventListener("touchstart", function(e) {
+      inputMinute.select();
+    },true);
     
     var btnHoursPlus = document.createElement("button");
     btnHoursPlus.innerHTML = "+";
