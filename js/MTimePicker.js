@@ -49,10 +49,11 @@ var MTimePicker = {
     btnHoursPlus.style.height = "40px";
     btnHoursPlus.style.fontSize = "22px";
     btnHoursPlus.className = MTimePicker.Config.ButtonClass;
-    btnHoursPlus.onclick = function() {
-      HourPlus();
-    };
-    btnHoursPlus.addEventListener("touchstart", HourPlus);
+    btnHoursPlus.addEventListener("click", HourPlus);
+    btnHoursPlus.addEventListener("touchstart", function(e){
+      btnHoursPlus.removeEventListener("click",HourPlus);
+      HourPlus();      
+    },true);
     timePicker.appendChild(btnHoursPlus);
 
     var btnMinutesPlus = document.createElement("button");
