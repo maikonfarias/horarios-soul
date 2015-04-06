@@ -19,6 +19,7 @@ var MTimePicker = {
     inputHour.style.cssFloat = "left";
     inputHour.style.textAlign = "center";
     inputHour.style.fontSize = "26px";
+    inputHour.style.borderRadius = "0px";    
     inputHour.className = MTimePicker.Config.InputClass;
     inputHour.onblur = function() {
       inputHour.value = formatHour(inputHour.value);
@@ -40,6 +41,7 @@ var MTimePicker = {
     inputMinute.style.textAlign = "center";
     inputMinute.style.fontSize = "26px";
     inputMinute.style.marginLeft = "15px";
+    inputMinute.style.borderRadius = "0px";
     inputMinute.className = MTimePicker.Config.InputClass;
     inputMinute.onblur = function() {
       inputMinute.value = formatMinute(inputMinute.value);
@@ -53,6 +55,9 @@ var MTimePicker = {
     btnHoursPlus.style.width = "80px";
     btnHoursPlus.style.height = "40px";
     btnHoursPlus.style.fontSize = "22px";
+    btnHoursPlus.style.borderRadius = "0px";
+    btnHoursPlus.style.borderTopLeftRadius = MTimePicker.Config.BorderRadius;
+    btnHoursPlus.style.borderTopRightRadius = MTimePicker.Config.BorderRadius;
     btnHoursPlus.className = MTimePicker.Config.ButtonClass;
     btnHoursPlus.addEventListener("click", HourPlus);
     btnHoursPlus.addEventListener("touchstart", function(e){
@@ -67,6 +72,9 @@ var MTimePicker = {
     btnMinutesPlus.style.height = "40px";
     btnMinutesPlus.style.marginLeft = "15px";
     btnMinutesPlus.style.fontSize = "22px";
+    btnMinutesPlus.style.borderRadius = "0px";
+    btnMinutesPlus.style.borderTopLeftRadius = MTimePicker.Config.BorderRadius;
+    btnMinutesPlus.style.borderTopRightRadius = MTimePicker.Config.BorderRadius;
     btnMinutesPlus.className = MTimePicker.Config.ButtonClass;
     btnMinutesPlus.addEventListener("click", MinutePlus);
     btnMinutesPlus.addEventListener("touchstart", function(e){
@@ -85,6 +93,7 @@ var MTimePicker = {
     divInputs.style.marginLeft = "auto";
     divInputs.style.marginRight = "auto";
     divInputs.appendChild(inputHour);
+        
     divInputs.appendChild(inputMinute);
     timePicker.appendChild(divInputs);
 
@@ -95,6 +104,9 @@ var MTimePicker = {
     btnHoursMinus.style.width = "80px";
     btnHoursMinus.style.height = "40px";
     btnHoursMinus.style.fontSize = "22px";
+    btnHoursMinus.style.borderRadius = "0px";
+    btnHoursMinus.style.borderBottomLeftRadius = MTimePicker.Config.BorderRadius;
+    btnHoursMinus.style.borderBottomRightRadius = MTimePicker.Config.BorderRadius;
     btnHoursMinus.className = MTimePicker.Config.ButtonClass;
     btnHoursMinus.addEventListener("click", HourMinus);
     btnHoursMinus.addEventListener("touchstart", function(e){
@@ -109,6 +121,9 @@ var MTimePicker = {
     btnMinutesMinus.style.height = "40px";
     btnMinutesMinus.style.marginLeft = "15px";
     btnMinutesMinus.style.fontSize = "22px";
+    btnMinutesMinus.style.borderRadius = "0px";
+    btnMinutesMinus.style.borderBottomLeftRadius = MTimePicker.Config.BorderRadius;
+    btnMinutesMinus.style.borderBottomRightRadius = MTimePicker.Config.BorderRadius;
     btnMinutesMinus.className = MTimePicker.Config.ButtonClass;
     btnMinutesMinus.addEventListener("click", MinuteMinus);
     btnMinutesMinus.addEventListener("touchstart", function(e){
@@ -308,7 +323,7 @@ var MTimePicker = {
     
     var btnOK = document.createElement("button");
     btnOK.innerHTML = "OK";    
-    btnOK.style.marginLeft = "10px";
+    btnOK.style.marginLeft = "15px";
     btnOK.style.marginTop = "15px";
     btnOK.style.width = "80px";
     btnOK.className = MTimePicker.Config.ButtonClass;
@@ -347,7 +362,8 @@ var MTimePicker = {
   Config: {
     ButtonClass: "",
     InputClass: "",
-    TitleClass: ""
+    TitleClass: "",
+    BorderRadius: "5px"
   }
 };
 
